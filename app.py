@@ -90,6 +90,7 @@ app.layout = dbc.Container(
                             start_date=df["date"].min(),
                             end_date=df["date"].max(),
                             id="date-range",
+                            clearable=True
                         ),
                     ],
                     width=3,
@@ -146,7 +147,13 @@ def create_covid(left_axis, right_axis, start_date, end_date):
     delta_wave = "2021-05-30"
     omicron_wave = "2021-11-01"
 
-    dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
+    if start_date and end_date:
+        dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
+    elif start_date:
+        dataframe = df[df["date"] >= start_date]
+    elif end_date:
+        dataframe = df[df["date"] <= end_date]
+
     max_y = dataframe[left_axis].max()
     min_y = dataframe[left_axis].min()
 
