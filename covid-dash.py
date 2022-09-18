@@ -14,6 +14,7 @@ app = Dash(
     external_stylesheets=[dbc.themes.SLATE],
     title="Covid-News",
 )
+server = app.server
 
 df = pd.read_csv("covid_plot_data.csv", index_col=[0], parse_dates=['date'])
 
@@ -252,4 +253,4 @@ def create_summary_table(start_date, end_date, corr_type):
 	return dbc.Table.from_dataframe(df=dataframe, striped=True, bordered=True, hover=True, color="dark", index=True)
 
 if __name__ == "__main__":
-    app.run_server(debug=True, port=6555)
+    app.run_server()
