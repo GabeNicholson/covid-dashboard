@@ -16,9 +16,9 @@ app = Dash(
 )
 server = app.server
 
-df = pd.read_csv("covid_plot_data.csv", index_col=[0], parse_dates=['date'])
+df = pd.read_csv("assets/covid_plot_data.csv", index_col=[0], parse_dates=['date'])
 
-plot_pub = pd.read_csv("publisher_df.csv")
+plot_pub = pd.read_csv("assets/publisher_df.csv")
 plot_pub.loc[:, "Average Sentiment Score"] = plot_pub.loc[:, "sentiment"]
 plot_pub = px.bar(
     plot_pub,
