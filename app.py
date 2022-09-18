@@ -10,9 +10,7 @@ pd.options.mode.chained_assignment = None
 
 app = Dash(
     __name__,
-    use_pages=False,
     external_stylesheets=[dbc.themes.SLATE],
-    title="Covid-News",
 )
 # server = app.server
 
