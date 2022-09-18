@@ -96,14 +96,14 @@ app.layout = dbc.Container(
                     width=3,
                 ),
 
-				dbc.Col([
-					html.Div('Select Correlation Statistic:'),
-					dcc.Dropdown(
-						options = ['pearson', 'spearman'],
-						value='pearson',
-						id='corr-option'
-					)
-				], width={'size':2}, )
+				# dbc.Col([
+				# 	html.Div('Select Correlation Statistic:'),
+				# 	dcc.Dropdown(
+				# 		options = ['pearson', 'spearman'],
+				# 		value='pearson',
+				# 		id='corr-option'
+				# 	)
+				# ], width={'size':2}, )
             ],
             align="left",
             justify="start",
@@ -113,7 +113,7 @@ app.layout = dbc.Container(
 			dbc.Col([
 				html.H3('Summary Statistics', style={'padding-top':'30px', 'color':'white'}),
 				html.Div(id='summary-table')
-			], width={'size': 6, 'offset':0}),
+			], width={'size': 6, 'offset':2}),
 			
 			# dbc.Col([
 			# 	html.H3('Correlation Table', style={'padding-top':'30px', 'color':'white'}),
@@ -259,4 +259,4 @@ def create_summary_table(start_date, end_date):
 # 	return dbc.Table.from_dataframe(df=dataframe, striped=True, bordered=True, hover=True, color="dark", index=True)
 
 if __name__ == "__main__":
-    app.run_server()
+    app.run_server(port=8551)
