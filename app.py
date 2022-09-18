@@ -113,12 +113,12 @@ app.layout = dbc.Container(
 			dbc.Col([
 				html.H3('Summary Statistics', style={'padding-top':'30px', 'color':'white'}),
 				html.Div(id='summary-table')
-			], width={'size': 4, 'offset':0}),
+			], width={'size': 6, 'offset':0}),
 			
-			dbc.Col([
-				html.H3('Correlation Table', style={'padding-top':'30px', 'color':'white'}),
-				html.Div(id='corr-table', )
-			], width={'offset':2, 'size':5}),
+			# dbc.Col([
+			# 	html.H3('Correlation Table', style={'padding-top':'30px', 'color':'white'}),
+			# 	html.Div(id='corr-table', )
+			# ], width={'offset':2, 'size':5}),
 
 		]),
 
@@ -247,16 +247,16 @@ def create_summary_table(start_date, end_date):
 	dataframe.columns = dataframe.columns.str.replace('_', ' ')
 	return dbc.Table.from_dataframe(df=dataframe, striped=True, bordered=True, hover=True, color="dark", index=True)
 
-@app.callback(Output('corr-table', 'children'),
-			[Input("date-range", "start_date"),
-        	Input("date-range", "end_date"),
-			Input('corr-option', 'value')])
-def create_summary_table(start_date, end_date, corr_type):
-	dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
-	dataframe.drop(['articles_per_day', 'Sentiment Score'],axis=1,inplace=True)
-	dataframe = dataframe.corr(corr_type).round(2)
-	dataframe.columns = dataframe.columns.str.replace('_', ' ')
-	return dbc.Table.from_dataframe(df=dataframe, striped=True, bordered=True, hover=True, color="dark", index=True)
+# @app.callback(Output('corr-table', 'children'),
+# 			[Input("date-range", "start_date"),
+#         	Input("date-range", "end_date"),
+# 			Input('corr-option', 'value')])
+# def create_summary_table(start_date, end_date, corr_type):
+# 	dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
+# 	dataframe.drop(['articles_per_day', 'Sentiment Score'],axis=1,inplace=True)
+# 	dataframe = dataframe.corr(corr_type).round(2)
+# 	dataframe.columns = dataframe.columns.str.replace('_', ' ')
+# 	return dbc.Table.from_dataframe(df=dataframe, striped=True, bordered=True, hover=True, color="dark", index=True)
 
 if __name__ == "__main__":
     app.run_server()
