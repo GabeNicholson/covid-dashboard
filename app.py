@@ -6,13 +6,14 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.express as px
 
-pd.options.mode.chained_assignment = None
+# pd.options.mode.chained_assignment = None
 
 app = Dash(
     __name__,
     external_stylesheets=[dbc.themes.SLATE],
 )
-# server = app.server
+
+server = app.server
 
 df = pd.read_csv("assets/covid_plot_data.csv", index_col=[0], parse_dates=['date'])
 
