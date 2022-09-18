@@ -131,125 +131,125 @@ app.layout = dbc.Container(
 )
 
 
-# @app.callback(
-#     Output("Covid-Graph", "figure"),
-#     [
-#         Input("left-axis-options", "value"),
-#         Input("right-axis-options", "value"),
-#         Input("date-range", "start_date"),
-#         Input("date-range", "end_date"),
-#     ],
-# )
-# def create_covid(left_axis, right_axis, start_date, end_date):
-#     fig = make_subplots(specs=[[{"secondary_y": True}]])
-#     vaccine_rollout = "2020-12-10"
-#     delta_wave = "2021-05-30"
-#     omicron_wave = "2021-11-01"
+@app.callback(
+    Output("Covid-Graph", "figure"),
+    [
+        Input("left-axis-options", "value"),
+        Input("right-axis-options", "value"),
+        Input("date-range", "start_date"),
+        Input("date-range", "end_date"),
+    ],
+)
+def create_covid(left_axis, right_axis, start_date, end_date):
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+    vaccine_rollout = "2020-12-10"
+    delta_wave = "2021-05-30"
+    omicron_wave = "2021-11-01"
 
-#     dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
-#     max_y = dataframe[left_axis].max()
-#     min_y = dataframe[left_axis].min()
+    dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
+    max_y = dataframe[left_axis].max()
+    min_y = dataframe[left_axis].min()
 
-#     fig.add_trace(
-#         go.Scatter(
-#             x=dataframe["date"],
-#             y=dataframe[left_axis],
-#             name=left_axis,
-#             line=dict(color="#508ca3"),
-#         ),
-#         secondary_y=False,
-#     )
+    fig.add_trace(
+        go.Scatter(
+            x=dataframe["date"],
+            y=dataframe[left_axis],
+            name=left_axis,
+            line=dict(color="#508ca3"),
+        ),
+        secondary_y=False,
+    )
 
-#     fig.add_trace(
-#         go.Scatter(
-#             x=dataframe["date"],
-#             y=dataframe[right_axis],
-#             name=right_axis,
-#             line=dict(color="#960e32"),
-#         ),
-#         secondary_y=True,
-#     )
-#     # Add Horizontal Line
-#     fig.add_trace(
-#         go.Scatter(
-#             x=dataframe["date"],
-#             y=np.zeros(len(dataframe)),
-#             name="Neutral Sentiment",
-#             visible="legendonly",
-#         )
-#     )
+    fig.add_trace(
+        go.Scatter(
+            x=dataframe["date"],
+            y=dataframe[right_axis],
+            name=right_axis,
+            line=dict(color="#960e32"),
+        ),
+        secondary_y=True,
+    )
+    # Add Horizontal Line
+    fig.add_trace(
+        go.Scatter(
+            x=dataframe["date"],
+            y=np.zeros(len(dataframe)),
+            name="Neutral Sentiment",
+            visible="legendonly",
+        )
+    )
 
-#     # Add Average Sentiment Line
-#     fig.add_trace(
-#         go.Scatter(
-#             x=dataframe["date"],
-#             y= np.ones(len(dataframe)) * dataframe['Sentiment Score'].mean(),
-#             name="Avg News Sentiment",
-#             visible="legendonly",
-#         )
-#     )
+    # Add Average Sentiment Line
+    fig.add_trace(
+        go.Scatter(
+            x=dataframe["date"],
+            y= np.ones(len(dataframe)) * dataframe['Sentiment Score'].mean(),
+            name="Avg News Sentiment",
+            visible="legendonly",
+        )
+    )
 
-#     fig.add_trace(
-#         go.Scatter(
-#             x=[vaccine_rollout, vaccine_rollout],
-#             y=[min_y, max_y],
-#             name="Vaccine Rollout",
-#             mode="lines",
-#             opacity=0.9,
-#             line=dict(width=1.5, dash="dash"),
-#             visible="legendonly",
-#         )
-#     )
-#     fig.add_trace(
-#         go.Scatter(
-#             x=[delta_wave, delta_wave],
-#             y=[min_y, max_y],
-#             name="Delta Wave",
-#             mode="lines",
-#             opacity=0.9,
-#             line=dict(width=2, dash="dash"),
-#             visible="legendonly",
-#         )
-#     )
-#     fig.add_trace(
-#         go.Scatter(
-#             x=[omicron_wave, omicron_wave],
-#             y=[min_y, max_y],
-#             name="Omicron Wave",
-#             mode="lines",
-#             opacity=0.9,
-#             line=dict(width=2, dash="dash"),
-#             visible="legendonly",
-#         )
-#     )
+    fig.add_trace(
+        go.Scatter(
+            x=[vaccine_rollout, vaccine_rollout],
+            y=[min_y, max_y],
+            name="Vaccine Rollout",
+            mode="lines",
+            opacity=0.9,
+            line=dict(width=1.5, dash="dash"),
+            visible="legendonly",
+        )
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=[delta_wave, delta_wave],
+            y=[min_y, max_y],
+            name="Delta Wave",
+            mode="lines",
+            opacity=0.9,
+            line=dict(width=2, dash="dash"),
+            visible="legendonly",
+        )
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=[omicron_wave, omicron_wave],
+            y=[min_y, max_y],
+            name="Omicron Wave",
+            mode="lines",
+            opacity=0.9,
+            line=dict(width=2, dash="dash"),
+            visible="legendonly",
+        )
+    )
 
-#     fig.update_yaxes(title_text=f"<b>{left_axis}</b>", secondary_y=False)
-#     fig.update_yaxes(title_text=f"<b>{right_axis}</b>", secondary_y=True)
-#     fig.update_layout(template="plotly_dark", height=650)
-#     return fig
+    fig.update_yaxes(title_text=f"<b>{left_axis}</b>", secondary_y=False)
+    fig.update_yaxes(title_text=f"<b>{right_axis}</b>", secondary_y=True)
+    fig.update_layout(template="plotly_dark", height=650)
+    return fig
 
-# @app.callback(Output('summary-table', 'children'),
-# 			[Input("date-range", "start_date"),
-#         	Input("date-range", "end_date"),])
-# def create_summary_table(start_date, end_date):
-# 	dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
-# 	dataframe = dataframe.describe().round(2)
-# 	dataframe.index = dataframe.index.rename('Summary Statistic')
-# 	dataframe.drop(['Sentiment Score', 'articles_per_day'],axis=1, inplace=True)
-# 	dataframe = dataframe.loc[["mean", "std", "min", "max"]]
-# 	dataframe.columns = dataframe.columns.str.replace('_', ' ')
-# 	return dbc.Table.from_dataframe(df=dataframe, striped=True, bordered=True, hover=True, color="dark", index=True)
+@app.callback(Output('summary-table', 'children'),
+			[Input("date-range", "start_date"),
+        	Input("date-range", "end_date"),])
+def create_summary_table(start_date, end_date):
+	dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
+	dataframe = dataframe.describe().round(2)
+	dataframe.index = dataframe.index.rename('Summary Statistic')
+	dataframe.drop(['Sentiment Score', 'articles_per_day'],axis=1, inplace=True)
+	dataframe = dataframe.loc[["mean", "std", "min", "max"]]
+	dataframe.columns = dataframe.columns.str.replace('_', ' ')
+	return dbc.Table.from_dataframe(df=dataframe, striped=True, bordered=True, hover=True, color="dark", index=True)
 
-# @app.callback(Output('corr-table', 'children'),
-# 			[Input("date-range", "start_date"),
-#         	Input("date-range", "end_date"),
-# 			Input('corr-option', 'value')])
-# def create_summary_table(start_date, end_date, corr_type):
-# 	dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
-# 	dataframe.drop(['articles_per_day', 'Sentiment Score'],axis=1,inplace=True)
-# 	dataframe = dataframe.corr(corr_type).round(2)
-# 	dataframe.columns = dataframe.columns.str.replace('_', ' ')
-# 	return dbc.Table.from_dataframe(df=dataframe, striped=True, bordered=True, hover=True, color="dark", index=True)
+@app.callback(Output('corr-table', 'children'),
+			[Input("date-range", "start_date"),
+        	Input("date-range", "end_date"),
+			Input('corr-option', 'value')])
+def create_summary_table(start_date, end_date, corr_type):
+	dataframe = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
+	dataframe.drop(['articles_per_day', 'Sentiment Score'],axis=1,inplace=True)
+	dataframe = dataframe.corr(corr_type).round(2)
+	dataframe.columns = dataframe.columns.str.replace('_', ' ')
+	return dbc.Table.from_dataframe(df=dataframe, striped=True, bordered=True, hover=True, color="dark", index=True)
 
 if __name__ == "__main__":
     app.run_server()
