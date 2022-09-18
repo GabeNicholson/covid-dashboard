@@ -14,7 +14,7 @@ app = Dash(
     external_stylesheets=[dbc.themes.SLATE],
     title="Covid-News",
 )
-server = app.server
+# server = app.server
 
 df = pd.read_csv("assets/covid_plot_data.csv", index_col=[0], parse_dates=['date'])
 
