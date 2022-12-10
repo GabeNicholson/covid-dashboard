@@ -12,12 +12,11 @@ app = Dash(
     __name__,
     external_stylesheets=[dbc.themes.SLATE],
 )
-
 server = app.server
 
 df = pd.read_csv("assets/covid_plot_data.csv", index_col=[0], parse_dates=['date'])
-
 plot_pub = pd.read_csv("assets/publisher_df.csv")
+
 plot_pub.loc[:, "Average Sentiment Score"] = plot_pub.loc[:, "sentiment"]
 plot_pub = px.bar(
     plot_pub,
@@ -153,7 +152,7 @@ def create_covid(left_axis, right_axis, start_date, end_date):
         dataframe = df[df["date"] >= start_date]
     elif end_date:
         dataframe = df[df["date"] <= end_date]
-
+    
     max_y = dataframe[left_axis].max()
     min_y = dataframe[left_axis].min()
 
